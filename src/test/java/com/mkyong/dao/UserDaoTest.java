@@ -1,5 +1,7 @@
 package com.mkyong.dao;
 
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -39,6 +41,19 @@ public class UserDaoTest {
     	Assert.assertEquals(1, user.getId().intValue());
     	Assert.assertEquals("mkyong", user.getName());
     	Assert.assertEquals("mkyong@gmail.com", user.getEmail());
+
+    }
+
+    @Test
+    public void testFindAll() {
+    	NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(db);
+    	UserDaoImpl userDao = new UserDaoImpl();
+    	userDao.setNamedParameterJdbcTemplate(template);
+    	
+    	List<User> userList = userDao.findAll();
+  
+    	Assert.assertNotNull(userList);
+    	Assert.assertEquals(3, userList.size() );
 
     }
 
