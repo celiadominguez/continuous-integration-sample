@@ -72,6 +72,21 @@ public class UserDaoTest {
 
     }
 
+    @Test
+    public void testFindError2() {
+    	NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(db);
+    	UserDaoImpl userDao = new UserDaoImpl();
+    	userDao.setNamedParameterJdbcTemplate(template);
+
+    	User user = userDao.findByName("mkyong");
+  
+    	Assert.assertNotNull(user);
+    	Assert.assertEquals(2, user.getId().intValue());
+    	Assert.assertEquals("mkyong", user.getName());
+    	Assert.assertEquals("mkyong@gmail.com", user.getEmail());
+
+    }
+
     @After
     public void tearDown() {
         db.shutdown();
